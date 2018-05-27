@@ -110,6 +110,7 @@ def display():
 
 # "Main"
 if __name__ == '__main__':
+	fracDepth = int(input("Digite a profundidade da esponja de Menger: "))
 	menger = Menger(fracDepth, 1.0, (0, 0, 0))
 	glutInit()
 	init()
