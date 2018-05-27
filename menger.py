@@ -1,6 +1,14 @@
 # -*- coding: utf-8 -*-
 # Compile and run this file using python3
 # Issues found: artefacting after changing the depth of the fractal
+#
+# Comandos do teclado:
+# Q = alternar visualização em wireframes
+# Z/X = escala em X
+# C/V = escala em Y
+# W/A/S/D = translação em X/Y
+# Setas = rotação em X/Y
+
 
 from OpenGL.GL import *
 from OpenGL.GLU import *
@@ -23,10 +31,11 @@ class Menger:
 		self.depth = depth; self.size = size; self.origin = origin
 		# Criar cubos
 		self.make(self.depth, self.size, self.origin)
+
 	# Desenha todos os cubos
 	def draw(self):
-		for i in self.drawCubes: # draw each cube
-			i.draw()
+		for i in self.drawCubes: i.draw() # draw each cube
+
 	# Recursão para criar os cubos que serão ser desenhados
 	def make(self, depth, size, origin):
 		if(depth <= 0):
@@ -37,13 +46,14 @@ class Menger:
 			for j in range(3):
 				for k in range(3):
 					if([i, j] != [1, 1] and [i, k] != [1, 1] and [j, k] != [1, 1]):
-						self.make(depth-1, size/3, (origin[0]+(i-1)*size/3, origin[1]+(j-1)*size/3, origin[2]+(k-1)*size/3))
+						self.make(depth-1, size/3, (origin[0]+(i-1)*size/3, \
+							origin[1]+(j-1)*size/3, origin[2]+(k-1)*size/3))
 
 
 def init() :
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH)
 	glutInitWindowSize(700, 700)
-	glutCreateWindow("Hello World")
+	glutCreateWindow("Esponja de Menger")
 	glEnable(GL_DEPTH_TEST)
 	glClearColor(1, 1, 1, 1)
 
@@ -80,7 +90,8 @@ def specialPressEvent(key, x, y) :
 # Display OpenGL
 def display():
 	global menger
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_ACCUM_BUFFER_BIT | GL_STENCIL_BUFFER_BIT)
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | \
+		GL_ACCUM_BUFFER_BIT | GL_STENCIL_BUFFER_BIT)
 
 	glLoadIdentity()
 
