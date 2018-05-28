@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # Compile and run this file using python3
-# Issues found: artefacting after changing the depth of the fractal
 #
 # Comandos do teclado:
 # Q = alternar visualização em wireframes
@@ -110,7 +109,15 @@ def display():
 
 # "Main"
 if __name__ == '__main__':
-	fracDepth = int(input("Digite a profundidade da esponja de Menger: "))
+	while True:
+		try:
+			fracDepth = int(input("Digite a profundidade da esponja de Menger: "))
+			if(fracDepth < 0): raise ValueError("O valor da profundidade não pode ser negativo.")
+			break;
+		except Exception as err:
+			print("Input inválido. Erro: " + repr(err))
+			continue;
+
 	menger = Menger(fracDepth, 1.0, (0, 0, 0))
 	glutInit()
 	init()
